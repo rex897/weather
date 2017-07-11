@@ -17,8 +17,7 @@ public class App {
 
     public static void main(String[] args) throws IOException, RuntimeException {
         int updateId = 0;
-//        String apikey = System.getenv("token");
-        String apikey = "420434135:AAHkgSFKVPX5sXUF4DXgjMG_qaI6UIYucmE";
+        String apikey = System.getenv("token");
         TelegramBot bot = TelegramBotAdapter.build(apikey);
         while (true) {
             try {
