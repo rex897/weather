@@ -1,3 +1,5 @@
+import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -7,7 +9,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-
 
 public class Weather {
     public String getWeather(String city) throws IOException {
@@ -19,22 +20,26 @@ public class Weather {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         urlConnection.connect();
         JsonParser jp = new JsonParser();
-        JsonObject item = jp.parse(new InputStreamReader((InputStream) urlConnection.getContent()))
+        InputStream inputStream = (InputStream) urlConnection.getContent();
+        JsonElement item1 = jp.parse(new InputStreamReader(inputStream))
                 .getAsJsonObject().get("query")
-                .getAsJsonObject().get("results")
-                .getAsJsonObject().get("channel")
-                .getAsJsonObject().get("item").getAsJsonObject();
-        JsonObject condition1 = item.get("condition").getAsJsonObject();
-        String location = item.get("title").getAsString();
-        String resultLocation = location.substring(location.indexOf("Conditions"), location.indexOf("at"));
-        String date = condition1.get("date").getAsString();
-        String resultDate = date.substring(0, 17);
-        int tempF = condition1.get("temp").getAsInt();
-        String text = condition1.get("text").getAsString();
-        int temp = ((tempF - 32) * 5) / 9;
-        String result = (resultLocation + "\n" + resultDate + "\n" +
-                "Temperature " + temp + "°" + ", " + text);
-        return result;
+                .getAsJsonObject().get("results");
+        if (!(item1 instanceof JsonNull)) {
+            JsonObject item_result = item1.getAsJsonObject().get("channel").getAsJsonObject().get("item").getAsJsonObject();
+            JsonObject condition1 = item_result.get("condition").getAsJsonObject();
+            String location = item_result.get("title").getAsString();
+            String resultLocation = location.substring(location.indexOf("Conditions"), location.indexOf("at"));
+            String date = condition1.get("date").getAsString();
+            String resultDate = date.substring(0, 17);
+            int tempF = condition1.get("temp").getAsInt();
+            String text = condition1.get("text").getAsString();
+            int temp = ((tempF - 32) * 5) / 9;
+            return (resultLocation + "\n" + resultDate + "\n" +
+                    "Temperature " + temp + "°" + ", " + text);
+        } else {
+
+            return "Запрашиваемый город не найден, попробуйте ввести правильное название.";
+
+        }
     }
 }
-

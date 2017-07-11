@@ -17,7 +17,8 @@ public class App {
 
     public static void main(String[] args) throws IOException, RuntimeException {
         int updateId = 0;
-        String apikey = System.getenv("token");
+//        String apikey = System.getenv("token");
+        String apikey = "420434135:AAHkgSFKVPX5sXUF4DXgjMG_qaI6UIYucmE";
         TelegramBot bot = TelegramBotAdapter.build(apikey);
         while (true) {
             try {
@@ -35,19 +36,20 @@ public class App {
                         sendMessage(bot, "Я не знаю, что ответить, попробуйте команду /start", message.chat().id());
                     }
                     if (text != null) {
-                        Instant instant = Instant.ofEpochSecond(message.date());
-                        ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(instant, ZoneId.systemDefault());
-                        System.out.println(zonedDateTime + " " + ": " + " " + message.chat().firstName() + ":" + " " + message.text());
+                        /*Instant instant = Instant.ofEpochSecond(message.date());
+                        ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(instant, ZoneId.systemDefault());*/
+                        System.out.println(/*zonedDateTime + " " + ": " + " " + */message.chat().firstName() + ":" + " " + message.text());
                         if (text.equals("/start")) {
                             sendMessage(bot, "Привет, я бот, который будет присылать тебе погоду по заданному тобой городу. " +
                                     "Попробуй ввести команду /weather и название города через проблел </weather город> ", message.chat().id());
                         } else if (text.contains("/weather")) {
-                            if(text.length()>9) {
+                            if (text.length() > 9) {
                                 String gorod = text.substring(9);
                                 Weather weather = new Weather();
                                 weather.getWeather(gorod);
                                 sendMessage(bot, weather.getWeather(gorod), message.chat().id());
-                            }else sendMessage(bot, "Введите название города после команды '/weather'", message.chat().id());
+                            } else
+                                sendMessage(bot, "Введите название города после команды '/weather'", message.chat().id());
                         } else {
                             sendMessage(bot, "Неизвестная команда, попробуйте /start", message.chat().id());
                         }
