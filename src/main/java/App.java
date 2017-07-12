@@ -6,13 +6,38 @@ import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
 import com.pengrad.telegrambot.response.SendResponse;
+import org.apache.catalina.Context;
+import org.apache.catalina.LifecycleException;
+import org.apache.catalina.WebResourceRoot;
+import org.apache.catalina.startup.Tomcat;
+import org.apache.catalina.webresources.DirResourceSet;
+import org.apache.catalina.webresources.StandardRoot;
 
+import javax.servlet.ServletException;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 public class App {
 
-    public static void main(String[] args) throws IOException, RuntimeException {
+    public static void main(String[] args) throws IOException, RuntimeException, LifecycleException, ServletException {
+        Tomcat tomcat = new Tomcat();
+        tomcat.setPort(8080);
+
+        Context context = tomcat.addWebapp("", new File("/").getAbsolutePath());
+        WebResourceRoot resources = new StandardRoot(context);
+        resources.addPreResources(new DirResourceSet(resources,
+                "/",
+                new File("").getAbsolutePath(),
+                "/"));
+        resources.addPreResources(new DirResourceSet(
+                resources,
+                "/",
+                new File("").getAbsolutePath(),
+                "/"));
+        context.setResources(resources);
+
+        tomcat.start();
         int updateId = 0;
         String apikey = System.getenv("token");
         TelegramBot bot = TelegramBotAdapter.build(apikey);

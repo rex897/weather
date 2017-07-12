@@ -26,6 +26,11 @@ dependencies {
 
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
+
+    // Tomcat embedded
+    compile "org.apache.tomcat.embed:tomcat-embed-core:9.0.0.M4"
+    compile "org.apache.tomcat.embed:tomcat-embed-logging-juli:9.0.0.M4"
+    compile "org.apache.tomcat.embed:tomcat-embed-jasper:9.0.0.M4"
 }
 
 // Define the main class for the application
