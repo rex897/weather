@@ -8,9 +8,6 @@ import com.pengrad.telegrambot.response.GetUpdatesResponse;
 import com.pengrad.telegrambot.response.SendResponse;
 
 import java.io.IOException;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.List;
 
 public class App {
@@ -35,11 +32,9 @@ public class App {
                         sendMessage(bot, "Я не знаю, что ответить, попробуйте команду /start", message.chat().id());
                     }
                     if (text != null) {
-                        /*Instant instant = Instant.ofEpochSecond(message.date());
-                        ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(instant, ZoneId.systemDefault());*/
-                        System.out.println(/*zonedDateTime + " " + ": " + " " + */message.chat().firstName() + ":" + " " + message.text());
+                        System.out.println(message.chat().firstName() + ":" + " " + message.text());
                         if (text.equals("/start")) {
-                            sendMessage(bot, "Привет, я бот, который будет присылать тебе погоду по заданному тобой городу. " +
+                            sendMessage(bot, "Привет, " + message.chat().firstName()+ ", я бот, который будет присылать тебе погоду по заданному тобой городу. " +
                                     "Попробуй ввести команду /weather и название города через проблел </weather город> ", message.chat().id());
                         } else if (text.contains("/weather")) {
                             if (text.length() > 9) {
