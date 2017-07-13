@@ -13,7 +13,8 @@
 Пример: set "token=123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11"
 <hr>
 
-#Пример работы
+# Example of work
+![Example of work](http://cdn1.savepice.ru/uploads/2017/7/13/7ecaed57cc552902735d69d364a894aa-full.jpg)
 
 
 
