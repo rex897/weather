@@ -8,7 +8,7 @@
 <hr>
 
 # Local environment variables
-В файле start.example.bat вместо <token> нужно вписать свой токен (без <>), полученный у BotFather.
+В файле start.example.bat нужно вписать свой токен (без <>), полученный у BotFather.
 
 Пример: set "token=123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11"
 <hr>
