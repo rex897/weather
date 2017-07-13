@@ -64,10 +64,15 @@ public class App {
                 }
                 System.out.println(message.chat().firstName() + ":" + " " + message.text());
                 if (text.equals("/start")) {
-                    sendMessage(bot, "Привет, " + message.chat().firstName() + ", я бот, который будет присылать тебе погоду по заданному тобой городу. " +
-                            "Попробуй ввести команду /weather и название города через проблел </weather город> ", message.chat().id());
+                    sendMessage(bot, "Привет, " + message.chat().firstName() + ", я бот, который будет присылать " +
+                            "тебе погоду по заданному тобой городу. " +
+                            "Попробуй ввести команду /weather и название города через проблел </weather город> ",
+                            message.chat().id());
                 } else if (text.contains("/weather")) {
-                    sendMessage(bot, getWeather(text), message.chat().id());
+                    Weather weather = new Weather();
+                    weather.getWeather(getCity(text));
+//                    return weather.getWeather();
+                    sendMessage(bot, weather.getWeather(getCity(text)), message.chat().id());
 
                 } else {
                     sendMessage(bot, "Неизвестная команда, попробуйте /start", message.chat().id());
@@ -84,19 +89,16 @@ public class App {
         Message response = sendResponse.message();
     }
 
-    public static String getWeather(String text) throws IOException {
+    public static String getCity(String text) throws IOException {
         if (text.length() > 9) { //только проверка на длину строки, всё остальное не нужно
             String gorod = text.substring(9);
-            Weather weather = new Weather();
-            weather.getWeather(gorod);
-            return weather.getWeather(gorod);
-
+            return gorod;
         } else
             return "Введите название города после команды '/weather'";
     }
 
-    public boolean isCommand(String s){
-        if ((s!=null && s.length()>0) && (s.startsWith("/")) && (s.contains("/weather") || s.contains("/start"))) {
+    public boolean isCommand(String s) {
+        if ((s != null && s.length() > 0) && (s.startsWith("/")) && (s.contains("/weather") || s.contains("/start"))) {
             return true;
         } else {
             return false;

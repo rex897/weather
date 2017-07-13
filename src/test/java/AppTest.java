@@ -29,5 +29,9 @@ public class AppTest {
                 app.isCommand(null));
 
     }
+    public void isWeather() throws Exception{
+        App app = new App();
+
+    }
 
 }
