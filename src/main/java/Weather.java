@@ -33,13 +33,17 @@ public class Weather {
             String resultDate = date.substring(0, 17);
             int tempF = condition1.get("temp").getAsInt();
             String text = condition1.get("text").getAsString();
-            int temp = ((tempF - 32) * 5) / 9;
+            Weather weather = new Weather();
+//            int temp = weather.FtoC(tempF);
             return (resultLocation + "\n" + resultDate + "\n" +
-                    "Temperature " + temp + "°" + ", " + text);
+                    "Temperature " + weather.FtoC(tempF) + "°" + ", " + text);
         } else {
 
             return "Запрашиваемый город не найден, попробуйте ввести правильное название.";
 
         }
+    }
+    public int FtoC(int tempF) {//Фаренгейт в Цельсий
+        return ((tempF - 32) * 5) / 9;
     }
 }

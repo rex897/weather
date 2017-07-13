@@ -34,6 +34,7 @@ public class AppTest {
         App app = new App();
         assertEquals("",app.getCity("/weather"));
         assertEquals("ufa", app.getCity("/weather ufa"));
+
     }
 
 }
