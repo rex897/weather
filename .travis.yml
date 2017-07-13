@@ -1,2 +1,2 @@
 language: java
-script: main app
+script: gradle main
