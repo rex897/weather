@@ -65,14 +65,17 @@ public class App {
                 System.out.println(message.chat().firstName() + ":" + " " + message.text());
                 if (text.equals("/start")) {
                     sendMessage(bot, "Привет, " + message.chat().firstName() + ", я бот, который будет присылать " +
-                            "тебе погоду по заданному тобой городу. " +
-                            "Попробуй ввести команду /weather и название города через проблел </weather город> ",
+                                    "тебе погоду по заданному тобой городу. " +
+                                    "Попробуй ввести команду /weather и название города через проблел </weather город> ",
                             message.chat().id());
                 } else if (text.contains("/weather")) {
-                    Weather weather = new Weather();
-                    weather.getWeather(getCity(text));
-//                    return weather.getWeather();
-                    sendMessage(bot, weather.getWeather(getCity(text)), message.chat().id());
+                    String city = app.getCity(text);
+                    if (city.length() > 0) {
+                        Weather weather = new Weather();
+                        sendMessage(bot, weather.getWeather(city), message.chat().id());
+                    } else {
+                        sendMessage(bot, "Введите название города после /weather", message.chat().id());
+                    }
 
                 } else {
                     sendMessage(bot, "Неизвестная команда, попробуйте /start", message.chat().id());
@@ -89,12 +92,12 @@ public class App {
         Message response = sendResponse.message();
     }
 
-    public static String getCity(String text) throws IOException {
+    public String getCity(String text){
         if (text.length() > 9) { //только проверка на длину строки, всё остальное не нужно
             String gorod = text.substring(9);
             return gorod;
         } else
-            return "Введите название города после команды '/weather'";
+            return "";
     }
 
     public boolean isCommand(String s) {

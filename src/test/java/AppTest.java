@@ -29,9 +29,11 @@ public class AppTest {
                 app.isCommand(null));
 
     }
-    public void isWeather() throws Exception{
+    @Test
+    public void getCity() throws Exception{
         App app = new App();
-
+        assertEquals("",app.getCity("/weather"));
+        assertEquals("ufa", app.getCity("/weather ufa"));
     }
 
 }
