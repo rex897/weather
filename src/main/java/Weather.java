@@ -11,6 +11,15 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 public class Weather {
+
+    /**
+     * Получение сводки погоды с yahoo weather
+     *
+     * @param city Название города, получаем из сообщения пользователя в классе App(метод getCity) при помощи работы
+     *             со строками
+     * @return Готовый текст сообщения для отправки пользователю, содержащий сведения о погоде в заданном городе
+     * @throws IOException
+     */
     public String getWeather(String city) throws IOException {
         String endpoint = "https://query.yahooapis.com/v1/public/yql?q=select%20item%20from" +
                 "%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%" +
@@ -34,7 +43,6 @@ public class Weather {
             int tempF = condition1.get("temp").getAsInt();
             String text = condition1.get("text").getAsString();
             Weather weather = new Weather();
-//            int temp = weather.FtoC(tempF);
             return (resultLocation + "\n" + resultDate + "\n" +
                     "Temperature " + weather.FtoC(tempF) + "°" + ", " + text);
         } else {
@@ -43,7 +51,14 @@ public class Weather {
 
         }
     }
-    public int FtoC(int tempF) {//Фаренгейт в Цельсий
+
+    /**
+     * Фаренгейт в Цельсий
+     *
+     * @param tempF Температура в Фаренгейтах
+     * @return Температура в Цельсиях
+     */
+    public int FtoC(int tempF) {//
         return ((tempF - 32) * 5) / 9;
     }
 }

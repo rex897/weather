@@ -19,7 +19,15 @@ import java.io.IOException;
 import java.util.List;
 
 public class App {
-
+    /**
+     * Основной метод, осуществляется получение Updates и основные действия бота
+     *
+     * @param args
+     * @throws IOException
+     * @throws RuntimeException
+     * @throws LifecycleException
+     * @throws ServletException
+     */
     public static void main(String[] args) throws IOException, RuntimeException, LifecycleException, ServletException {
         Tomcat tomcat = new Tomcat();
         tomcat.setPort(8080);
@@ -86,13 +94,27 @@ public class App {
         }
     }
 
+    /**
+     * Метод реализует отправку сообщения пользователю
+     *
+     * @param bot    просто бот
+     * @param text   Текст полученного сообщения
+     * @param chatID Chat_id отправителя для обратной связи с ним
+     * @throws IOException
+     */
     private static void sendMessage(TelegramBot bot, String text, long chatID) throws IOException {
         SendMessage request = new SendMessage(chatID, text);
         SendResponse sendResponse = bot.execute(request);
         Message response = sendResponse.message();
     }
 
-    public String getCity(String text){
+    /**
+     * Отделение названия города от текста с командой /weather
+     *
+     * @param text Текст полученного сообщения, содержащего команду /weather
+     * @return Либо название города, либо пустая строка(если название города не введено)
+     */
+    public String getCity(String text) {
         if (text.length() > 9) { //только проверка на длину строки, всё остальное не нужно
             String gorod = text.substring(9);
             return gorod;
@@ -100,6 +122,12 @@ public class App {
             return "";
     }
 
+    /**
+     * Проверка полученного сообщения на содержание в нём команды
+     *
+     * @param s Строка в которой содержится текст сообщения
+     * @return
+     */
     public boolean isCommand(String s) {
         if ((s != null && s.length() > 0) && (s.startsWith("/")) && (s.contains("/weather") || s.contains("/start"))) {
             return true;
