@@ -6,7 +6,6 @@ import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
 import com.pengrad.telegrambot.response.SendResponse;
-import com.sun.istack.internal.NotNull;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.WebResourceRoot;
@@ -104,4 +103,3 @@ public class App {
         }
     }
 }
-//if (s.contains("/weather") || s.contains("/start"))
