@@ -64,7 +64,7 @@ public class App {
                 }
                 System.out.println(message.chat().firstName() + ":" + " " + message.text());
                 if (text.equals("/start")) {
-                    sendMessage(bot, "Привет, " + message.chat().firstName() + ", я бот, который будет присылать " +
+                    sendMessage(bot, "Привет, " + message.chat().firstName() + ", " + "я бот, который будет присылать " +
                                     "тебе погоду по заданному тобой городу. " +
                                     "Попробуй ввести команду /weather и название города через проблел </weather город> ",
                             message.chat().id());
