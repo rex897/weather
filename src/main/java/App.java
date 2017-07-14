@@ -2,6 +2,7 @@ import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.TelegramBotAdapter;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
+import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
@@ -100,7 +101,7 @@ public class App {
    * @param chatID Chat_id отправителя для обратной связи с ним
    */
   private static void sendMessage(TelegramBot bot, String text, long chatID) throws IOException {
-    SendMessage request = new SendMessage(chatID, text);
+    SendMessage request = new SendMessage(chatID, "*" + text + "*").parseMode(ParseMode.Markdown);
     SendResponse sendResponse = bot.execute(request);
     Message response = sendResponse.message();
   }
